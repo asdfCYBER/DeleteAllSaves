@@ -64,7 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DeleteAllSaves.cs" />
+    <Compile Include="HideButtonsOnDeletePatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShowButtonsOnDeleteCancelPatch.cs" />
     <Compile Include="ShowButtonsPatch.cs" />
     <Compile Include="UImagic.cs" />
   </ItemGroup>

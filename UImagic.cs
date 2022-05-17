@@ -106,8 +106,8 @@ namespace DeleteAllSaves
                 parent.Find(ConfirmationDeleteAllName).gameObject.SetActive(true);
                 item.LsDelete.FillLocalizedString(delegate (string s) { item.Name.text = "Delete all saves?"; });
             }
-            
-            item.AdditionalActionsPanel.SetActive(false);
+
+            ShowConfirmationButtonsOnly(item);
         }
 
         /// <summary>
@@ -118,6 +118,7 @@ namespace DeleteAllSaves
         {
             Debug.Log($"[DeleteAllSaves] Erase confirmed for {item.Item.Name}. Keep most recent: {keepMostRecent}");
             DeleteAllSaves.DeleteSaves(item, keepMostRecent);
+            ShowAllButtons(item);
         }
 
         private static void OnClickCancel(LevelListItem item)
@@ -136,6 +137,7 @@ namespace DeleteAllSaves
             parent.Find(ConfirmationDeleteAllName).gameObject.SetActive(false);
             parent.Find(ConfirmationDeleteAllButOneName).gameObject.SetActive(false);
             item.Name.text = item.Item.Name;
+            ShowAllButtons(item);
         }
 
         /// <summary>
@@ -192,6 +194,26 @@ namespace DeleteAllSaves
             tooltip.TooltipText = text;
             tooltip.Text = text;
             tooltip.LocalizedText = new LocalizedString();
+        }
+
+        internal static void ShowConfirmationButtonsOnly(LevelListItem item)
+        {
+            // Disable game buttons
+            item.DeleteClicked();
+            item.DeleteConfirmationContent.SetActive(false);
+
+            // Disable own buttons
+            item.AdditionalActionsRect.Find(ButtonDeleteAllName)?.gameObject?.SetActive(false);
+            item.AdditionalActionsRect.Find(ButtonDeleteAllButOneName)?.gameObject?.SetActive(false);
+        }
+
+        internal static void ShowAllButtons(LevelListItem item)
+        {
+            item.DeleteNoClicked();
+
+            // Enable own buttons
+            item.AdditionalActionsRect.Find(ButtonDeleteAllName)?.gameObject?.SetActive(true);
+            item.AdditionalActionsRect.Find(ButtonDeleteAllButOneName)?.gameObject?.SetActive(true);
         }
     }
 }

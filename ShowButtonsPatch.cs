@@ -3,17 +3,19 @@ using HarmonyLib;
 
 namespace DeleteAllSaves
 {
-    [HarmonyPatch(typeof(LevelListItem), nameof(LevelListItem.EllipsisClicked))]
+    [HarmonyPatch(typeof(LevelListItem), nameof(LevelListItem.OnPointerEnter))]
     internal class ShowButtonsPatch
     {
         private static void Prefix(LevelListItem __instance)
         {
+            UnityEngine.Debug.Log("Test");
+            
             // Can't access saves for this item
             if (!__instance.Item.SaveLoadPossible)
                 return;
 
             // Button already exists (and confirmation panel too probably)
-            if (__instance.AdditionalActionsPanel?.transform?.Find(UImagic.ButtonDeleteAllName) != null)
+            if (__instance.AdditionalActionsRect?.Find(UImagic.ButtonDeleteAllName) != null)
                 return;
 
             UImagic.AddDeleteAllButton(__instance);
