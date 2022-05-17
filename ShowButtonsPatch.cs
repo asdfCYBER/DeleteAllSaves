@@ -8,8 +8,6 @@ namespace DeleteAllSaves
     {
         private static void Prefix(LevelListItem __instance)
         {
-            UnityEngine.Debug.Log("Test");
-            
             // Can't access saves for this item
             if (!__instance.Item.SaveLoadPossible)
                 return;
