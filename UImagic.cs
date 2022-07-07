@@ -98,13 +98,15 @@ namespace DeleteAllSaves
             Transform parent = item.DeleteConfirmationContent.transform.parent;
             if (keepMostRecent)
             {
-                parent.Find(ConfirmationDeleteAllButOneName).gameObject.SetActive(true);
-                item.LsDelete.FillLocalizedString(delegate (string s) { item.Name.text = "Delete all saves but one?"; });
+                GameObject confirmation = parent.Find(ConfirmationDeleteAllButOneName).gameObject;
+                confirmation.SetActive(true);
+                confirmation.transform.Find("Delete text").GetComponent<TMP_Text>().text = "Delete all older saves?";
             }
             else
             {
-                parent.Find(ConfirmationDeleteAllName).gameObject.SetActive(true);
-                item.LsDelete.FillLocalizedString(delegate (string s) { item.Name.text = "Delete all saves?"; });
+                GameObject confirmation = parent.Find(ConfirmationDeleteAllName).gameObject;
+                confirmation.SetActive(true);
+                confirmation.transform.Find("Delete text").GetComponent<TMP_Text>().text = "Delete all saves?";
             }
 
             ShowConfirmationButtonsOnly(item);
